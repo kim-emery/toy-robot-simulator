@@ -5,7 +5,6 @@ namespace ToyRobotSimulator.Simulation
 {
     public class SimulationManager : ISimulationManager
     {
-
         private readonly IRobot _toyRobot;
         private readonly ITableTop _tableTop;
         private readonly ICommandProcessor _commandProcessor;

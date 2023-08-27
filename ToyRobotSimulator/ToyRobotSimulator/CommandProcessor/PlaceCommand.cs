@@ -12,9 +12,9 @@ namespace ToyRobotSimulator.Simulation
 
         public PlaceCommand(int X, int Y, Direction Direction ) 
         { 
-            this.x = X;
-            this.y = Y;
-            this.direction = Direction;
+            x = X;
+            y = Y;
+            direction = Direction;
         }
 
         public void Execute(IRobot Robot) 
