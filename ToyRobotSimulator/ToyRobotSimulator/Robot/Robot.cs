@@ -3,15 +3,14 @@
     public class ToyRobot : IRobot
     {
         private const int _step = 1;
-        public bool _isPlaced { get; private set; }
+        private bool _isPlaced = false;
         public int XAxisPlacement { get; private set; }
         public int YAxisPlacement { get; private set; }
-        public Direction FaceDirection { get; set; } //maybe change this to singular instead of plural
-        
+        public Direction FaceDirection { get; set; }
+
         // initialise the toy robot
         public ToyRobot()
         {
-            _isPlaced = false;
         }
 
         public bool IsPlaced()
@@ -21,7 +20,7 @@
 
         public void Place(int xPlacement, int yPlacement, Direction direction)
         {
-            _isPlaced = true;       
+            _isPlaced = true;
             XAxisPlacement = xPlacement;
             YAxisPlacement = yPlacement;
             FaceDirection = direction;
@@ -37,41 +36,45 @@
             Rotate(1);
         }
 
-        public void MoveOneStep() // check to see if robot can be moved
+        public (int, int) GetNextPositionAfterStep()
         {
+            int yIndex = YAxisPlacement;
+            int xIndex = XAxisPlacement;
+
             switch (FaceDirection)
             {
                 case Direction.NORTH:
-                    XAxisPlacement += _step;
+                    yIndex = YAxisPlacement + _step;
                     break;
                 case Direction.SOUTH:
-                    XAxisPlacement -= _step;
+                    yIndex = YAxisPlacement - _step;
                     break;
                 case Direction.WEST:
-                    YAxisPlacement -= _step;
+                    xIndex = XAxisPlacement - _step;
                     break;
                 case Direction.EAST:
-                    YAxisPlacement += _step;
-                    break;
-                default:
+                    xIndex = XAxisPlacement + _step;
                     break;
             }
+
+            return (xIndex, yIndex);
         }
 
         private void Rotate(int rightAngleTurn)
         {
-            int newDirectionToFace = (int) FaceDirection + (rightAngleTurn);
+            int newDirectionToFace = (int)FaceDirection + (rightAngleTurn);
 
-            if ((int) newDirectionToFace > (int) Direction.WEST)
+            if (newDirectionToFace > (int)Direction.WEST)
             {
                 FaceDirection = Direction.NORTH;
-            }else if ((int) newDirectionToFace < (int)Direction.NORTH)
+            }
+            else if (newDirectionToFace < (int)Direction.NORTH)
             {
                 FaceDirection = Direction.WEST;
             }
             else
             {
-                FaceDirection = (Direction) newDirectionToFace;
+                FaceDirection = (Direction)newDirectionToFace;
             }
         }
 

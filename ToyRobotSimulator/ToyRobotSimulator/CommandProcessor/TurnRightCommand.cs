@@ -19,7 +19,7 @@ namespace ToyRobotSimulator.Simulation
         public bool Validate(IRobot Robot, ITableTop TableTop)
         {
             if (!Robot.IsPlaced()) throw new ValidationException(RobotNotPlacedErrorMessage);
-            return !Robot.IsPlaced();
+            return Robot.IsPlaced();
         }
     }
 }

@@ -13,7 +13,8 @@ namespace ToyRobotSimulator.Simulation
 
         public void Execute(IRobot Robot)
         {
-           Console.WriteLine( Robot.GetCurrentPosition().ToString());
+            var (currentPositionX, currentPositionY, currentDirection) = Robot.GetCurrentPosition();
+            Console.WriteLine( $"{currentPositionX},{currentPositionY},{currentDirection}");
         }
 
         public bool Validate(IRobot Robot, ITableTop TableTop)
