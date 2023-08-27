@@ -1,65 +1,51 @@
 ﻿using ToyRobotSimulator.Robot;
+using static ToyRobotSimulator.ApplicationStrings;
 
 namespace ToyRobotSimulator.Input
 {
     public class ConsoleInputHandler : IInputHandler
     {
-        // should be in it's own class with interface and splitting options
+        private readonly string positionSplitCharacter;
+        private readonly string commandSplitCharacter;
+
+        public ConsoleInputHandler()
+        {
+            commandSplitCharacter = " ";
+            positionSplitCharacter = ","; // put in config
+        }
+
         public string[] ParseRawInput(string rawUserInput)
         {
-            return rawUserInput.Split(" "); // put in config
+            return rawUserInput.Split(commandSplitCharacter);
         }
 
-
-        public static void ValidateInputCommands(string[] commandInput)
-        {
-
-
-        }
-
-        //separate valid input types, parsing format validating format
+        // should probably extract these to separate validation objects to make them more testable
         public Tuple<int, int, Direction> ValidatePlaceCommand(string[] commandInput)
         {
-            const int positionalParamCount = 3;
             const int rawInputCount = 2; //expectedRawArguments
+            const int positionalParamCount = 3;
 
             int xPlacement;
             int yPlacement;
             Direction direction;
 
 
-            if (commandInput.Length != rawInputCount)
-            {
-                throw new ArgumentException("Invalid Command. PLACE command should be in the format: PLACE X,Y,F ");
-            }
+            if (commandInput.Length != rawInputCount) throw new ArgumentException(InvalidPlaceInputErrorMessage);
 
-            var positionalParams = commandInput[1].Split(",");
+            var positionalParams = commandInput[1].Split(positionSplitCharacter);
 
-            if (positionalParams.Length != positionalParamCount)
-            {
-                throw new ArgumentException("Invalid Command. PLACE command should be in the format: PLACE X,Y,F ");
-            }
+            if (positionalParams.Length != positionalParamCount) throw new ArgumentException(InvalidPlaceInputErrorMessage);
 
+            // check if correct numeric input for positions x and y, can refactor these
+            if (!int.TryParse(positionalParams[0], out xPlacement)) throw new ArgumentException(InvalidPositionInputErrorMessage);
 
-            // check if correct numeric input for positions x and y
-            if (!int.TryParse(positionalParams[0], out xPlacement))
-            {
-                throw new ArgumentException("Invalid position input.");
-            }
+            if (!int.TryParse(positionalParams[1], out yPlacement)) throw new ArgumentException(InvalidPositionInputErrorMessage);
 
-            if (!int.TryParse(positionalParams[1], out yPlacement))
-            {
-                throw new ArgumentException("Invalid position input.");
-            }
 
             // check if correct direction (NORTH, SOUTH, EAST, WEST)
-            if (!Enum.TryParse(positionalParams[2], true, out direction))
-            {
-                throw new ArgumentException("Invalid direction input. Must be either NORTH, SOUTH, EAST, WEST");
-            }
+            if (!Enum.TryParse(positionalParams[2], true, out direction)) throw new ArgumentException(InvalidDirectionInputErrorMessage);
 
             return Tuple.Create(xPlacement, yPlacement, direction);
-
         }
 
         public RobotCommand ValidateDefaultCommand(string[] commandInput)
@@ -68,7 +54,7 @@ namespace ToyRobotSimulator.Input
             const int expectedParamCount = 1;
             if (commandInput.Length != expectedParamCount)
             {
-                throw new ArgumentException("Invalid Command.");
+                throw new ArgumentException(InvalidInputErrorMessage);
             }
             var validCommand = Enum.TryParse(commandInput[0], true, out command);
             return command;

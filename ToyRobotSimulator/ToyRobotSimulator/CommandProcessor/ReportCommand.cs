@@ -1,5 +1,7 @@
-﻿using ToyRobotSimulator.Robot;
+﻿using System.ComponentModel.DataAnnotations;
+using ToyRobotSimulator.Robot;
 using ToyRobotSimulator.TableTop;
+using static ToyRobotSimulator.ApplicationStrings;
 
 namespace ToyRobotSimulator.Simulation
 {
@@ -11,11 +13,13 @@ namespace ToyRobotSimulator.Simulation
 
         public void Execute(IRobot Robot)
         {
-           Console.WriteLine( Robot.GetCurrentPosition().ToString());
+            var (currentPositionX, currentPositionY, currentDirection) = Robot.GetCurrentPosition();
+            Console.WriteLine( $"{currentPositionX},{currentPositionY},{currentDirection}");
         }
 
         public bool Validate(IRobot Robot, ITableTop TableTop)
         {
+            if (!Robot.IsPlaced()) throw new ValidationException(RobotNotPlacedErrorMessage);
             return Robot.IsPlaced();
         }
     }
