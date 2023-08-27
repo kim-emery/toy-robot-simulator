@@ -1,38 +1,54 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations;
 using ToyRobotSimulator.Input;
 using ToyRobotSimulator.Robot;
 using ToyRobotSimulator.Simulation;
 using ToyRobotSimulator.TableTop;
+using static ToyRobotSimulator.ApplicationStrings;
 
 namespace ToyRobotSimulator
 {
-    internal class Program
+    public class Program
     {
-        private const String TableTopConfigName = "TableTop";
-
+        private const string TableTopConfigName = "TableTop";
+   
         static void Main(string[] args)
         {
             IHost host = CreateHost(args);
             ISimulationManager manager = host.Services.GetRequiredService<ISimulationManager>();
+            IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
+            int tableTopSize = config.GetValue<int>($"{TableTopConfigName}:Size");
 
-            Console.WriteLine(ApplicationStrings.AppDescription);
+            Console.WriteLine(AppDescription, tableTopSize, tableTopSize);
+
             bool exitApplication = false;
             do
             {
                 var command = Console.ReadLine();
 
-                if (command == null) continue;
+                if (string.IsNullOrEmpty(command)) continue;
 
-                if (command.ToUpper() == "EXIT")
-                {
-                    exitApplication = true;
-                }
+                if (command.ToUpper() == "EXIT") exitApplication = true;
+
                 else
                 {
-                    manager.HandleCommand(command);
+                    try
+                    {
+                        manager.HandleCommand(command);
+                    }catch (Exception ex)
+                    {
+                        if (ex is ArgumentException) Console.WriteLine(ex.Message);
+                        if (ex is ValidationException) Console.WriteLine(ex.Message);
+                    }
+                    
                 }
             } while (!exitApplication);
+       
+
+            Console.WriteLine(AppExitMessage);
+            Environment.Exit(0);
         }
 
         public static IHost CreateHost(string[] args) =>

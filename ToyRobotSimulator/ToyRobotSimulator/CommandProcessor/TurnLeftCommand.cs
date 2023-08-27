@@ -1,5 +1,7 @@
-﻿using ToyRobotSimulator.Robot;
+﻿using System.ComponentModel.DataAnnotations;
+using ToyRobotSimulator.Robot;
 using ToyRobotSimulator.TableTop;
+using static ToyRobotSimulator.ApplicationStrings;
 
 namespace ToyRobotSimulator.Simulation
 {
@@ -16,6 +18,7 @@ namespace ToyRobotSimulator.Simulation
 
         public bool Validate(IRobot Robot, ITableTop TableTop)
         {
+            if (!Robot.IsPlaced()) throw new ValidationException(RobotNotPlacedErrorMessage);
             return !Robot.IsPlaced();
         }
     }

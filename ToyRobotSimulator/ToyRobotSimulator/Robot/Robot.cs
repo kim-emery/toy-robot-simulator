@@ -4,8 +4,8 @@
     {
         private const int _step = 1;
         public bool _isPlaced { get; private set; }
-        public int XAxisPlacement { get; set; }
-        public int YAxisPlacement { get; set; }
+        public int XAxisPlacement { get; private set; }
+        public int YAxisPlacement { get; private set; }
         public Direction FaceDirection { get; set; } //maybe change this to singular instead of plural
         
         // initialise the toy robot
@@ -60,7 +60,7 @@
 
         private void Rotate(int rightAngleTurn)
         {
-            int newDirectionToFace = (int)FaceDirection + (rightAngleTurn);
+            int newDirectionToFace = (int) FaceDirection + (rightAngleTurn);
 
             if ((int) newDirectionToFace > (int) Direction.WEST)
             {

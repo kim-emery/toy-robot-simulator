@@ -1,28 +1,31 @@
-﻿
-namespace ToyRobotSimulator
+﻿namespace ToyRobotSimulator
 {
     public static class ApplicationStrings
-    {
-        // public static readonly vs constant
-         
-        public static readonly string AppDescription = @"PLACE X,Y,F
-        MOVE
-        LEFT
-        RIGHT
-        REPORT
-        - PLACE will put the toy robot on the table in position X,Y and facing NORTH, SOUTH,
-        EAST or WEST.
-        - The origin (0,0) can be considered to be the SOUTH WEST most corner.
-        - The first valid command to the robot is a PLACE command, after that, any sequence
-        of commands may be issued, in any order, including another PLACE command. The
-        application should discard all commands in the sequence until a valid PLACE
-        command has been executed.
-        - MOVE will move the toy robot one unit forward in the direction it is currently facing.
-        - LEFT and RIGHT will rotate the robot 90 degrees in the specified direction without
-        changing the position of the robot.
-        - REPORT will announce the X,Y and F of the robot. This can be in any form, but
-        standard output is sufficient.
-        - A robot that is not on the table should ignore the MOVE, LEFT, RIGHT and REPORT
-        commands.";
+    {   
+        // move this to appsettings.json
+        public static readonly string AppDescription = 
+@"Toy Robot Simulator
+----------------------------------------------------------------
+Simulates a toy robot moving on a {0} x {1} table top.
+
+Commands:
+    PLACE X,Y,F
+    MOVE
+    LEFT
+    RIGHT
+    REPORT
+
+The first valid command to the robot is a PLACE command.
+After that, any sequence of commands may be issued, in any order.
+-------------------------------------------------------------------
+";
+        
+        public static readonly string AppExitMessage = @"Toy robot simulator is closing.";
+        public static readonly string RobotNotPlacedErrorMessage = "Robot needs to be placed first!";
+        public static readonly string PositionOutOfBoundsErrorMessage = "Robot needs to be placed within table top bounds.";
+        public static readonly string InvalidPlaceInputErrorMessage = "Invalid Command. PLACE command should be in the format: PLACE X,Y,F ";
+        public static readonly string InvalidPositionInputErrorMessage = "Invalid position input";
+        public static readonly string InvalidDirectionInputErrorMessage = "Invalid direction input. Must be either NORTH, SOUTH, EAST, WEST";
+        public static readonly string InvalidInputErrorMessage = "Invalid command.";
     }
 }

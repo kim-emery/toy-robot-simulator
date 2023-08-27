@@ -1,5 +1,6 @@
 ﻿using ToyRobotSimulator.Input;
 using ToyRobotSimulator.Robot;
+using static ToyRobotSimulator.ApplicationStrings;
 
 namespace ToyRobotSimulator.Simulation
 {
@@ -13,7 +14,7 @@ namespace ToyRobotSimulator.Simulation
 
         public ICommand CreateCommand(string commandInput)
         {
-            // maybe change to boolean with out like tryparse?
+
             var commandArguments = _inputHandler.ParseRawInput(commandInput);
             RobotCommand command;
 
@@ -43,12 +44,12 @@ namespace ToyRobotSimulator.Simulation
                         return new ReportCommand();
 
                     default:
-                        throw new ArgumentException("Invalid Argument");
+                        throw new ArgumentException(InvalidInputErrorMessage);
                 }
             }
             else
             {
-                throw new ArgumentException("Invalid Command");
+                throw new ArgumentException(InvalidInputErrorMessage);
             }
         }
     }
