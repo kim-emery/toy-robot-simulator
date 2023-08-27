@@ -15,7 +15,6 @@ namespace ToyRobotSimulatorTests
         [Fact]
         public void Validate_RobotIsPlaced_Success()
         {
-            //setup mock here
             _robotMock.Setup(x => x.IsPlaced()).Returns(true);
 
             // Arrange
@@ -31,12 +30,10 @@ namespace ToyRobotSimulatorTests
         [Fact]
         public void Validate_RobotIsNotPlaced_Failure()
         {
-            //setup mock here
             _robotMock.Setup(x => x.IsPlaced()).Returns(false);
 
             // Arrange
             var turnRightCommand = new TurnRightCommand();
-
 
             var expectedException = Assert.Throws<ValidationException>(() => turnRightCommand.Validate(_robotMock.Object, _tableTopMock.Object));
 

@@ -14,7 +14,6 @@ namespace ToyRobotSimulatorTests
         [Fact]
         public void CreateCommand_Move_Success()
         {
-            //setup mock here, isolate behaviour of inputhandler
             _inputHandlerMock.Setup(x => x.ParseRawInput(It.IsAny<string>())).Returns(new string[]{"move"});
             _inputHandlerMock.Setup(x => x.ValidateDefaultCommand(It.IsAny<string[]>())).Returns(RobotCommand.MOVE);
 
@@ -33,7 +32,6 @@ namespace ToyRobotSimulatorTests
         [Fact]
         public void CreateCommand_Right_Success()
         {
-            //setup mock here, isolate behaviour of inputhandler
             _inputHandlerMock.Setup(x => x.ParseRawInput(It.IsAny<string>())).Returns(new string[] { "right" });
             _inputHandlerMock.Setup(x => x.ValidateDefaultCommand(It.IsAny<string[]>())).Returns(RobotCommand.RIGHT);
 
@@ -52,7 +50,6 @@ namespace ToyRobotSimulatorTests
         [Fact]
         public void CreateCommand_Left_Success()
         {
-            //setup mock here, isolate behaviour of inputhandler
             _inputHandlerMock.Setup(x => x.ParseRawInput(It.IsAny<string>())).Returns(new string[] { "left" });
             _inputHandlerMock.Setup(x => x.ValidateDefaultCommand(It.IsAny<string[]>())).Returns(RobotCommand.LEFT);
 
@@ -71,7 +68,6 @@ namespace ToyRobotSimulatorTests
         [Fact]
         public void CreateCommand_Report_Success()
         {
-            //setup mock here, isolate behaviour of inputhandler
             _inputHandlerMock.Setup(x => x.ParseRawInput(It.IsAny<string>())).Returns(new string[] { "report" });
             _inputHandlerMock.Setup(x => x.ValidateDefaultCommand(It.IsAny<string[]>())).Returns(RobotCommand.LEFT);
 
@@ -90,7 +86,6 @@ namespace ToyRobotSimulatorTests
         [Fact]
         public void CreateCommand_Place_Success()
         {
-            //setup mock here, isolate behaviour of inputhandler
             _inputHandlerMock.Setup(x => x.ParseRawInput(It.IsAny<string>())).Returns(new string[] { "place" });
             _inputHandlerMock.Setup(x => x.ValidatePlaceCommand(It.IsAny<string[]>())).Returns(Tuple.Create(0, 0, Direction.NORTH));
 
@@ -109,9 +104,7 @@ namespace ToyRobotSimulatorTests
         [Fact]
         public void CreateCommand_Failure_InvalidCommand()
         {
-            //setup mock here, isolate behaviour of inputhandler
             _inputHandlerMock.Setup(x => x.ParseRawInput(It.IsAny<string>())).Returns(new string[] { "badinput" });
-            //_inputHandlerMock.Setup(x => x.ValidateDefaultCommand(It.IsAny<string[]>())).Returns(RobotCommand.MOVE);
 
             // Arrange
             var exceptionType = typeof(ArgumentException);

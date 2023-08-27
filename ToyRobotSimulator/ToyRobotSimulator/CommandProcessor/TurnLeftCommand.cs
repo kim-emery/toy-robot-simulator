@@ -11,15 +11,15 @@ namespace ToyRobotSimulator.Simulation
         {
         }
 
-        public void Execute(IRobot Robot)
+        public void Execute(IRobot robot)
         {
-            Robot.TurnLeft();
+            robot.TurnLeft();
         }
 
-        public bool Validate(IRobot Robot, ITableTop TableTop)
+        public bool Validate(IRobot robot, ITableTop tableTop)
         {
-            if (!Robot.IsPlaced()) throw new ValidationException(RobotNotPlacedErrorMessage);
-            return Robot.IsPlaced();
+            if (!robot.IsPlaced()) throw new ValidationException(RobotNotPlacedErrorMessage);
+            return robot.IsPlaced();
         }
     }
 }

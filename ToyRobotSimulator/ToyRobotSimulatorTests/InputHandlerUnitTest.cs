@@ -103,11 +103,9 @@ namespace ToyRobotSimulatorTests
 
             //Act
             var expectedException = Assert.Throws<ArgumentException>(() => inputHandler.ValidateDefaultCommand(commandInput));
-            
 
             // Assert
             Assert.Equal(InvalidInputErrorMessage, expectedException.Message);
-
         }
     }
 }

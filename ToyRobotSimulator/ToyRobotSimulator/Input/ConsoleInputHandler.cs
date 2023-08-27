@@ -5,18 +5,18 @@ namespace ToyRobotSimulator.Input
 {
     public class ConsoleInputHandler : IInputHandler
     {
-        private readonly string positionSplitCharacter;
-        private readonly string commandSplitCharacter;
+        private readonly string _positionSplitCharacter;
+        private readonly string _commandSplitCharacter;
 
         public ConsoleInputHandler()
         {
-            commandSplitCharacter = " ";
-            positionSplitCharacter = ","; // put in config
+            _commandSplitCharacter = " ";
+            _positionSplitCharacter = ","; // put in config
         }
 
         public string[] ParseRawInput(string rawUserInput)
         {
-            return rawUserInput.Split(commandSplitCharacter);
+            return rawUserInput.Split(_commandSplitCharacter);
         }
 
         // should probably extract these to separate validation objects to make them more testable
@@ -32,7 +32,7 @@ namespace ToyRobotSimulator.Input
 
             if (commandInput.Length != rawInputCount) throw new ArgumentException(InvalidPlaceInputErrorMessage);
 
-            var positionalParams = commandInput[1].Split(positionSplitCharacter);
+            var positionalParams = commandInput[1].Split(_positionSplitCharacter);
 
             if (positionalParams.Length != positionalParamCount) throw new ArgumentException(InvalidPlaceInputErrorMessage);
 

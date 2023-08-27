@@ -24,23 +24,23 @@ namespace ToyRobotSimulator.Simulation
                 switch (command)
                 {
                     case RobotCommand.PLACE:
-                        var positionData = _inputHandler.ValidatePlaceCommand(commandArguments);
-                        return new PlaceCommand(positionData.Item1, positionData.Item2, positionData.Item3);
+                        var (positionX, positionY, direction) = _inputHandler.ValidatePlaceCommand(commandArguments);
+                        return new PlaceCommand(positionX, positionY, direction);
 
                     case RobotCommand.MOVE:
-                        var moveData = _inputHandler.ValidateDefaultCommand(commandArguments);
+                        _ = _inputHandler.ValidateDefaultCommand(commandArguments);
                         return new MoveCommand();
 
                     case RobotCommand.RIGHT:
-                        var rightData = _inputHandler.ValidateDefaultCommand(commandArguments);
+                        _ = _inputHandler.ValidateDefaultCommand(commandArguments);
                         return new TurnRightCommand();
 
                     case RobotCommand.LEFT:
-                        var leftData = _inputHandler.ValidateDefaultCommand(commandArguments);
+                        _ = _inputHandler.ValidateDefaultCommand(commandArguments);
                         return new TurnLeftCommand();
 
                     case RobotCommand.REPORT:
-                        var reportData = _inputHandler.ValidateDefaultCommand(commandArguments);
+                        _ = _inputHandler.ValidateDefaultCommand(commandArguments);
                         return new ReportCommand();
 
                     default:
