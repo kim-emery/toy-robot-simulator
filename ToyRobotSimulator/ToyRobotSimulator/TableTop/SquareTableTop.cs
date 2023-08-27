@@ -18,5 +18,10 @@ namespace ToyRobotSimulator.TableTop
         {
             return (Rows, Columns);
         }
+
+        public bool IsValidPlacement(int rowIndex, int columnIndex)
+        {
+            return (rowIndex < Columns && rowIndex >= 0) && (columnIndex < Columns && columnIndex >= 0);
+        }
     }
 }

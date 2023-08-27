@@ -15,7 +15,7 @@ namespace ToyRobotSimulator.Simulation
         public ICommand CreateCommand(string commandInput)
         {
 
-            var commandArguments = _inputHandler.ParseRawInput(commandInput);
+            string[] commandArguments = _inputHandler.ParseRawInput(commandInput);
             RobotCommand command;
 
             var validCommand = Enum.TryParse(commandArguments[0].ToString(), true, out command);

@@ -18,8 +18,17 @@ namespace ToyRobotSimulator.Simulation
 
         public void HandleCommand(string commandInput)
         {
-            ICommand command = _commandProcessor.CreateCommand(commandInput);
-            if (command.Validate(_toyRobot, _tableTop)) command.Execute(_toyRobot);
+            try
+            {
+                ICommand command = _commandProcessor.CreateCommand(commandInput);
+                if (command.Validate(_toyRobot, _tableTop)) command.Execute(_toyRobot);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }
+ 

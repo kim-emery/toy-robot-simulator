@@ -13,13 +13,21 @@ namespace ToyRobotSimulator.Simulation
 
         public void Execute(IRobot Robot)
         {
-            Robot.MoveOneStep();
-        }
+            //swap to place
+            var (nextPositionX, nextPositionY) = Robot.GetNextPositionAfterStep();
+            //simplify this!
+            var (currentPositionX, currentPositionY, currentDirection) = Robot.GetCurrentPosition();
+            Robot.Place(nextPositionX,nextPositionY, currentDirection);
+        } 
 
         public bool Validate(IRobot Robot, ITableTop TableTop)
         {
             if (!Robot.IsPlaced()) throw new ValidationException(RobotNotPlacedErrorMessage);
-            return Robot.IsPlaced();
+
+            var (nextPositionX, nextPositionY) = Robot.GetNextPositionAfterStep();
+            if (!TableTop.IsValidPlacement(nextPositionX, nextPositionY)) throw new ValidationException(PositionOutOfBoundsErrorMessage);
+            
+            return true;
         }
     }
 }

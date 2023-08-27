@@ -19,6 +19,7 @@ namespace ToyRobotSimulator.Input
             return rawUserInput.Split(commandSplitCharacter);
         }
 
+        // should probably extract these to separate validation objects to make them more testable
         public Tuple<int, int, Direction> ValidatePlaceCommand(string[] commandInput)
         {
             const int rawInputCount = 2; //expectedRawArguments
@@ -58,10 +59,6 @@ namespace ToyRobotSimulator.Input
             var validCommand = Enum.TryParse(commandInput[0], true, out command);
             return command;
 
-        }
-
-        public static void ValidateInputCommands(string[] commandInput)
-        {
         }
     }
 }
