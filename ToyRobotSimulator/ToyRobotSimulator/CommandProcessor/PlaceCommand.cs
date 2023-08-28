@@ -12,21 +12,21 @@ namespace ToyRobotSimulator.Simulation
         private readonly Direction _direction;
 
         // rename these to be more descriptive
-        public PlaceCommand(int X, int Y, Direction Direction ) 
-        { 
-            _xPlacement = X;
-            _yPlacement = Y;
-            _direction = Direction;
+        public PlaceCommand(int xPlacement, int yPlacement, Direction direction)
+        {
+            _xPlacement = xPlacement;
+            _yPlacement = yPlacement;
+            _direction = direction;
         }
 
-        public void Execute(IRobot Robot) 
+        public void Execute(IRobot robot)
         {
-            Robot.Place(_xPlacement, _yPlacement, _direction);
+            robot.Place(_xPlacement, _yPlacement, _direction);
         }
 
-        public bool Validate(IRobot Robot, ITableTop TableTop)
+        public bool Validate(IRobot robot, ITableTop tableTop)
         {
-            if (!TableTop.IsValidPlacement(_xPlacement, _yPlacement)) throw new ValidationException(PositionOutOfBoundsErrorMessage);
+            if (!tableTop.IsValidPlacement(_xPlacement, _yPlacement)) throw new ValidationException(PositionOutOfBoundsErrorMessage);
             return true;
         }
     }

@@ -44,7 +44,6 @@ namespace ToyRobotSimulatorTests
             var expectedException = Assert.Throws<Exception>(() => simulationManager.HandleCommand(testString));
 
             // Assert
-
             _mockCommand.Verify(x => x.Validate(It.IsAny<IRobot>(), It.IsAny<ITableTop>()), Times.Once);
             _mockCommand.Verify(x => x.Execute(It.IsAny<IRobot>()), Times.Never);
         }

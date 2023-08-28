@@ -9,7 +9,7 @@ namespace ToyRobotSimulatorTests
         {
             // Arrange
             int xPlacement = 1;
-            int yPlacement = 2; 
+            int yPlacement = 2;
             Direction direction = Direction.NORTH;
             var robot = new ToyRobot();
 
@@ -41,10 +41,9 @@ namespace ToyRobotSimulatorTests
 
             // Act
             robot.TurnRight();
-
+            var currentDirection = robot.FaceDirection;
+            
             // Assert
-            var  currentDirection = robot.FaceDirection;
-
             Assert.Equal(resultDirection, currentDirection);
         }
 
@@ -64,10 +63,9 @@ namespace ToyRobotSimulatorTests
 
             // Act
             robot.TurnLeft();
-
-            // Assert
             var currentDirection = robot.FaceDirection;
 
+            // Assert
             Assert.Equal(resultDirection, currentDirection);
         }
 
@@ -76,7 +74,7 @@ namespace ToyRobotSimulatorTests
         [InlineData(Direction.NORTH, 2, 3)]
         [InlineData(Direction.SOUTH, 2, 1)]
         [InlineData(Direction.WEST, 1, 2)]
-        [InlineData(Direction.EAST, 3,2)]
+        [InlineData(Direction.EAST, 3, 2)]
         public void GetNextPositionAfterStep_Success(Direction direction, int expectedXPlacment, int expectedYPlacement)
         {
             // Arrange
@@ -94,7 +92,6 @@ namespace ToyRobotSimulatorTests
             Assert.Equal(direction, currentDirection);
             Assert.Equal(resultXPlacement, expectedXPlacment);
             Assert.Equal(resultYPlacement, expectedYPlacement);
-
         }
     }
 }
